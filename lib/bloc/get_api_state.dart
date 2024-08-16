@@ -1,12 +1,23 @@
 part of 'get_api_bloc.dart';
 
-sealed class GetApiState extends Equatable {
-  const GetApiState();
-  
+ class GetApiState extends Equatable {
+  final List<postmodel> postmodellist;
+   GetApiState({this.postmodellist = const[]});
+
+
+
+
+GetApiState copyWith ({List<postmodel> ?postmodellist}){
+return GetApiState(
+  postmodellist: postmodellist??this.postmodellist,
+);
+
+}
+   
+
+ 
   @override
   List<Object> get props => [];
-
-  get postmodellist => null;
 }
 
-final class GetApiInitial extends GetApiState {}
+

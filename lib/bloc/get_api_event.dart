@@ -1,8 +1,16 @@
 part of 'get_api_bloc.dart';
 
-sealed class GetApiEvent extends Equatable {
+abstract class GetApiEvent extends Equatable {
   const GetApiEvent();
 
   @override
   List<Object> get props => [];
+}
+
+class fetchdata extends GetApiEvent{
+
+
+  @override
+  List<Object> get props => [];
+
 }
