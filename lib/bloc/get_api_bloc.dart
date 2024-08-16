@@ -14,7 +14,7 @@ class GetApiBloc extends Bloc<GetApiEvent, GetApiState> {
     
     
     on<fetchdata>((event, emit) async {
-        postmodelrepository.getdata().then((value) {
+       await postmodelrepository.getdata().then((value) {
           emit(state.copyWith(postmodellist: value));
         },
         ).onError((error, stackTrace) {

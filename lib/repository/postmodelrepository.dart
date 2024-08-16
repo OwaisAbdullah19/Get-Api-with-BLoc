@@ -3,14 +3,13 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:api_get/model/postmodel.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 
 class Postmodelrepository {
   Future<List<postmodel>> getdata() async {
     try {
-      List<postmodel> postmodel1;
+      
       final response = await http
           .get(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
       if (response.statusCode == 200) {
