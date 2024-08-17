@@ -32,27 +32,45 @@ class _ApiscreenState extends State<Apiscreen> {
                   child: TextFormField(
                     decoration: InputDecoration(hintText: 'Search  '),
                     onChanged: (value) {
+                context.read<GetApiBloc>().add(searchdata(searchtext: value));
 
-                      
                     },
                   ),
                 ),
                 Expanded(
-                  child: ListView.builder(
-                      itemCount: state.postmodellist.length,
+                  child: state.Searchmessage.isNotEmpty ? Center(child: Text(state.Searchmessage.toString())) :  ListView.builder(
+                      itemCount: state.searchlist.isEmpty ? state.postmodellist.length : state.searchlist.length,
                       itemBuilder: (context, index) {
+                        if(state.searchlist.isEmpty){
                         final item = state.postmodellist[index];
                         return ListTile(
                           isThreeLine: true,
-                          title: Text('ID ' + item.id.toString()),
+                          title: Text(item.title.toString()),
                           subtitle: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(item.title.toString()),
+                              //Text(item.title.toString()),
                               Text(item.body.toString()),
                             ],
                           ),
                         );
+
+                        }else{
+                         final item = state.searchlist[index];
+                        return ListTile(
+                          isThreeLine: true,
+                          title: Text(item.title.toString()),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                             // Text(item.title.toString()),
+                              Text(item.body.toString()),
+                            ],
+                          ),
+                        );
+
+                        }
+                        
                       }),
                 )
               ],

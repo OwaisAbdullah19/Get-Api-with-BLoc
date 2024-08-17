@@ -10,7 +10,8 @@ part 'get_api_state.dart';
 
 class GetApiBloc extends Bloc<GetApiEvent, GetApiState> {
   Postmodelrepository postmodelrepository = Postmodelrepository();
-  GetApiBloc() : super(GetApiState()) {
+  List<postmodel> searchlist;
+  GetApiBloc({this.searchlist = const []}) : super(GetApiState()) {
     
     
     on<fetchdata>((event, emit) async {
@@ -20,6 +21,25 @@ class GetApiBloc extends Bloc<GetApiEvent, GetApiState> {
         ).onError((error, stackTrace) {
           emit(state.copyWith(postmodellist: []));
         },);
+    });
+
+
+    on<searchdata>((event, emit) {
+      if(event.searchtext.isEmpty){
+        emit(state.copyWith(searchlist: [],Searchmessage: ''));
+      }
+      else{
+        // For id search :  searchlist = state.postmodellist.where((element) => element.id.toString() == event.searchtext.toString()).toList();
+        // for title search 
+        searchlist = state.postmodellist.where((element) => element.title.toString().toLowerCase().contains(event.searchtext.toString().toLowerCase())).toList();
+         if(searchlist.isEmpty){
+          emit(state.copyWith(searchlist: [],Searchmessage: 'No Data Found!'));
+         }else{
+          emit(state.copyWith(searchlist: searchlist,Searchmessage: ''));
+         }
+     
+      }
+     
     });
   }
 }

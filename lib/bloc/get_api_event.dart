@@ -7,10 +7,15 @@ abstract class GetApiEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class fetchdata extends GetApiEvent{
-
-
+class fetchdata extends GetApiEvent {
   @override
   List<Object> get props => [];
+}
 
+class searchdata extends GetApiEvent {
+  String searchtext;
+
+  searchdata({required this.searchtext});
+  @override
+  List<Object> get props => [searchtext];
 }
